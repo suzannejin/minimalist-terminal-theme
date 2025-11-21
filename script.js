@@ -35,6 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const output2 = document.getElementById('output2');
 
     const line3 = document.getElementById('line3');
+    const cmd3 = document.getElementById('cmd3');
+    const cursor3 = document.getElementById('cursor3');
+    const output3 = document.getElementById('output3');
+
+    const line4 = document.getElementById('line4');
 
     async function typeText(element, text, delay = 100) {
         for (let i = 0; i < text.length; i++) {
@@ -49,33 +54,77 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Type first command
         cursor1.classList.add('typing');
-        await typeText(cmd1, 'cat intro.txt', 100);
+        await typeText(cmd1, 'cat intro.txt', 50);
         cursor1.classList.remove('typing');
         cursor1.style.display = 'none'; // Hide cursor after typing
 
         // Show output 1
-        await new Promise(resolve => setTimeout(resolve, 300));
+        await new Promise(resolve => setTimeout(resolve, 200));
         output1.classList.remove('hidden');
 
         // Show line 2
-        await new Promise(resolve => setTimeout(resolve, 300));
+        await new Promise(resolve => setTimeout(resolve, 200));
         line2.classList.remove('hidden');
 
         // Type second command
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 300));
         cursor2.classList.add('typing');
-        await typeText(cmd2, 'ls -la links/', 100);
+        await typeText(cmd2, 'ls links/', 50);
         cursor2.classList.remove('typing');
         cursor2.style.display = 'none';
 
         // Show output 2
-        await new Promise(resolve => setTimeout(resolve, 300));
+        await new Promise(resolve => setTimeout(resolve, 200));
         output2.classList.remove('hidden');
 
-        // Show line 3 (final prompt)
-        await new Promise(resolve => setTimeout(resolve, 300));
+        // Show line 3
+        await new Promise(resolve => setTimeout(resolve, 200));
         line3.classList.remove('hidden');
+
+        // Type third command
+        await new Promise(resolve => setTimeout(resolve, 300));
+        cursor3.classList.add('typing');
+        await typeText(cmd3, 'ls functions/', 50);
+        cursor3.classList.remove('typing');
+        cursor3.style.display = 'none';
+
+        // Show output 3
+        await new Promise(resolve => setTimeout(resolve, 200));
+        output3.classList.remove('hidden');
+
+        // Show line 4 (final prompt)
+        await new Promise(resolve => setTimeout(resolve, 200));
+        line4.classList.remove('hidden');
     }
 
     runSequence();
+
+    // Navigation Logic
+    const terminalContainer = document.querySelector('.terminal-container');
+    const links = document.querySelectorAll('#output3 .link-item');
+    const homeBtns = document.querySelectorAll('.home-btn');
+    const pages = document.querySelectorAll('.full-page');
+
+    links.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('data-target');
+            const targetPage = document.getElementById(targetId);
+
+            if (targetPage) {
+                terminalContainer.style.display = 'none';
+                targetPage.classList.remove('hidden');
+            }
+        });
+    });
+
+    homeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            pages.forEach(page => page.classList.add('hidden'));
+            terminalContainer.style.display = 'block'; // Or 'flex' depending on original CSS, but block is safer for div
+            // Restore flex if needed, but style.css says .terminal-container is block (default) or has width.
+            // Actually style.css doesn't specify display for terminal-container, so block is fine.
+            // Wait, body is flex, terminal-container is a child.
+        });
+    });
 });
