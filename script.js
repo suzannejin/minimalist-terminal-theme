@@ -168,8 +168,53 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Menu Logic
+    const menuBtns = document.querySelectorAll('.menu-btn');
+    const menuLinks = document.querySelectorAll('.menu-link');
+
+    menuBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent click from closing immediately
+            const dropdown = btn.nextElementSibling;
+            // Close other dropdowns first
+            document.querySelectorAll('.menu-dropdown').forEach(d => {
+                if (d !== dropdown) d.classList.add('hidden');
+            });
+            dropdown.classList.toggle('hidden');
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.menu-container')) {
+            document.querySelectorAll('.menu-dropdown').forEach(d => {
+                d.classList.add('hidden');
+            });
+        }
+    });
+
+    menuLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('data-target');
+            const hash = targetId.replace('page-', '');
+            history.pushState({
+                page: targetId
+            }, '', '#' + hash);
+            showPage(targetId);
+            // Close all dropdowns
+            document.querySelectorAll('.menu-dropdown').forEach(d => {
+                d.classList.add('hidden');
+            });
+        });
+    });
+
     window.addEventListener('popstate', (event) => {
         handleHashChange();
+        // Ensure menu is closed on back/forward
+        document.querySelectorAll('.menu-dropdown').forEach(d => {
+            d.classList.add('hidden');
+        });
     });
 
     // Initial check
