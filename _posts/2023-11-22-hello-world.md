@@ -31,3 +31,6 @@ def hello_world():
 ## Conclusion
 
 Wrap up your post here.
+
+
+<p align="right">Written by Gemini</p>

@@ -221,6 +221,7 @@ body.home-page {
     display: flex;
     flex-direction: column;
     padding: 20px;
+    overflow-y: auto;
     box-sizing: border-box;
 }
 
@@ -456,4 +457,63 @@ body.home-page {
     color: var(--text-color);
     font-size: 0.9rem;
     align-self: flex-end;
+}
+
+/* About Me Styles */
+.about-container {
+    display: flex;
+    gap: 30px;
+    margin-top: 2em;
+    flex-wrap: wrap;
+}
+
+.about-photo {
+    flex: 0 0 200px;
+}
+
+.about-photo img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--link-color);
+}
+
+.about-bio {
+    flex: 1;
+    min-width: 300px;
+}
+
+.about-bio h2 {
+    margin-top: 1.5em;
+    color: var(--text-color);
+}
+
+.about-bio ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.about-bio ul li {
+    padding: 0.5em 0;
+    padding-left: 1.5em;
+    position: relative;
+}
+
+.about-bio ul li:before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--link-color);
+}
+
+@media (max-width: 600px) {
+    .about-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about-photo {
+        flex: 0 0 auto;
+    }
 }
