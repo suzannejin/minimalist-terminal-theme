@@ -195,13 +195,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     menuLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault();
             const targetId = link.getAttribute('data-target');
-            const hash = targetId.replace('page-', '');
-            history.pushState({
-                page: targetId
-            }, '', '#' + hash);
-            showPage(targetId);
+            if (targetId) {
+                e.preventDefault();
+                const hash = targetId.replace('page-', '');
+                history.pushState({
+                    page: targetId
+                }, '', '#' + hash);
+                showPage(targetId);
+            }
             // Close all dropdowns
             document.querySelectorAll('.menu-dropdown').forEach(d => {
                 d.classList.add('hidden');
@@ -210,7 +212,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.addEventListener('popstate', (event) => {
-        handleHashChange();
+        if (typeof handleHashChange === 'function') {
+            handleHashChange();
+        }
         // Ensure menu is closed on back/forward
         document.querySelectorAll('.menu-dropdown').forEach(d => {
             d.classList.add('hidden');
@@ -218,5 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Initial check
-    handleHashChange();
+    if (typeof handleHashChange === 'function') {
+        handleHashChange();
+    }
 });

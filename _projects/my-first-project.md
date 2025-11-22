@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: "My First Project"
 description: "A cool project I worked on."
 ---
