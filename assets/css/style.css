@@ -228,7 +228,7 @@ body.home-page {
 }
 
 .nav-menu {
-    position: absolute;
+    position: fixed;
     top: 70px;
     left: 20px;
     width: 30px;
