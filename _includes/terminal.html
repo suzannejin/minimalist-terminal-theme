@@ -41,11 +41,7 @@
                 <i class="fas fa-graduation-cap"></i> Google Scholar
             </a>
             {% endif %}
-            {% if site.links.cv %}
-            <a href="{{ site.links.cv }}" class="link-item">
-                <i class="fas fa-file-alt"></i> CV
-            </a>
-            {% endif %}
+
         </div>
 
         <div class="command-line hidden" id="line3">
@@ -68,7 +64,19 @@
         </div>
 
         <div class="command-line hidden" id="line4">
-            <span class="prompt">{{ site.username }} ~ %</span> <span class="cursor" id="cursor4"></span>
+            <span class="prompt">{{ site.username }} ~ %</span> <span class="command" id="cmd4"></span><span
+                class="cursor" id="cursor4"></span>
+        </div>
+        <div class="output links-grid hidden" id="output4">
+            {% if site.links.cv %}
+            <a href="{{ site.links.cv }}" class="link-item">
+                <i class="fas fa-file-alt"></i> CV
+            </a>
+            {% endif %}
+        </div>
+
+        <div class="command-line hidden" id="line5">
+            <span class="prompt">{{ site.username }} ~ %</span> <span class="cursor" id="cursor5"></span>
         </div>
     </div>
 </div>

@@ -52,6 +52,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const output3 = document.getElementById('output3');
 
     const line4 = document.getElementById('line4');
+    const cmd4 = document.getElementById('cmd4');
+    const cursor4 = document.getElementById('cursor4');
+    const output4 = document.getElementById('output4');
+
+    const line5 = document.getElementById('line5');
 
     async function typeText(element, text, delay = 100) {
         for (let i = 0; i < text.length; i++) {
@@ -78,6 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
             output3.classList.remove('hidden');
 
             line4.classList.remove('hidden');
+            cmd4.textContent = 'ls other/';
+            cursor4.style.display = 'none';
+            output4.classList.remove('hidden');
+
+            line5.classList.remove('hidden');
         } else {
             // Run animation
             // Initial delay
@@ -123,9 +133,24 @@ document.addEventListener('DOMContentLoaded', () => {
             await new Promise(resolve => setTimeout(resolve, 200));
             output3.classList.remove('hidden');
 
-            // Show line 4 (final prompt)
+            // Show line 4
             await new Promise(resolve => setTimeout(resolve, 200));
             line4.classList.remove('hidden');
+
+            // Type fourth command
+            await new Promise(resolve => setTimeout(resolve, 300));
+            cursor4.classList.add('typing');
+            await typeText(cmd4, 'ls other/', 50);
+            cursor4.classList.remove('typing');
+            cursor4.style.display = 'none';
+
+            // Show output 4
+            await new Promise(resolve => setTimeout(resolve, 200));
+            output4.classList.remove('hidden');
+
+            // Show line 5 (final prompt)
+            await new Promise(resolve => setTimeout(resolve, 200));
+            line5.classList.remove('hidden');
 
             // Set flag
             sessionStorage.setItem('terminalAnimationRun', 'true');
@@ -241,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const hash = targetId.replace('page-', '');
                 window.location.href = '/#' + hash;
             }
-            
+
             // Close all dropdowns
             document.querySelectorAll('.menu-dropdown').forEach(d => {
                 d.classList.add('hidden');
