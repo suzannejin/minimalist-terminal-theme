@@ -11,6 +11,7 @@
     --cursor-color: #a0a0a0;
     --btn-color: #f0f0f0;
     --overlay-bg: rgba(30, 30, 30, 0.95);
+    --code-bg: rgba(110, 118, 129, 0.4);
 }
 
 [data-theme="light"] {
@@ -25,6 +26,7 @@
     --cursor-color: #555555;
     --btn-color: #333333;
     --overlay-bg: rgba(255, 255, 255, 0.95);
+    --code-bg: #f6f8fa;
 }
 
 body {
@@ -385,15 +387,15 @@ body.home-page {
 }
 
 .page-content code {
-    background-color: var(--header-bg);
-    padding: 2px 5px;
-    border-radius: 3px;
+    background-color: var(--code-bg);
+    padding: 0.2em 0.4em;
+    border-radius: 6px;
     font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
-    font-size: 0.9em;
+    font-size: 0.85em;
 }
 
 .page-content pre {
-    background-color: var(--header-bg);
+    /* background-color: var(--header-bg); - Handled by syntax.css */
     padding: 15px;
     border-radius: 5px;
     overflow-x: auto;
