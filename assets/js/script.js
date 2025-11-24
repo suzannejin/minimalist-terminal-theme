@@ -141,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pages = document.querySelectorAll('.full-page');
 
     function showPage(pageId) {
+        if (!terminalContainer) return;
         terminalContainer.style.display = 'none';
         pages.forEach(page => {
             if (page.id === pageId) {
@@ -152,11 +153,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showTerminal() {
+        if (!terminalContainer) return;
         pages.forEach(page => page.classList.add('hidden'));
         terminalContainer.style.display = 'block';
     }
 
     function handleHashChange() {
+        if (!terminalContainer) return;
         const hash = window.location.hash.substring(1); // Remove #
         if (hash) {
             const targetPageId = 'page-' + hash;
@@ -184,10 +187,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     homeBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            history.pushState({
-                page: 'terminal'
-            }, '', window.location.pathname);
-            showTerminal();
+            if (terminalContainer) {
+                history.pushState({
+                    page: 'terminal'
+                }, '', window.location.pathname);
+                showTerminal();
+            } else {
+                window.location.href = '/';
+            }
         });
     });
 
@@ -219,14 +226,22 @@ document.addEventListener('DOMContentLoaded', () => {
     menuLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             const targetId = link.getAttribute('data-target');
-            if (targetId) {
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
                 e.preventDefault();
                 const hash = targetId.replace('page-', '');
                 history.pushState({
                     page: targetId
                 }, '', '#' + hash);
                 showPage(targetId);
+            } else {
+                // If target doesn't exist on this page, go to home page with hash
+                e.preventDefault();
+                const hash = targetId.replace('page-', '');
+                window.location.href = '/#' + hash;
             }
+            
             // Close all dropdowns
             document.querySelectorAll('.menu-dropdown').forEach(d => {
                 d.classList.add('hidden');
@@ -235,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.addEventListener('popstate', (event) => {
-        if (typeof handleHashChange === 'function') {
+        if (terminalContainer && typeof handleHashChange === 'function') {
             handleHashChange();
         }
         // Ensure menu is closed on back/forward
@@ -245,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Initial check
-    if (typeof handleHashChange === 'function') {
+    if (terminalContainer && typeof handleHashChange === 'function') {
         handleHashChange();
     }
 });

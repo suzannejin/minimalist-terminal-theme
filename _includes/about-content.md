@@ -4,10 +4,10 @@ Some content about me...
 
 ## Skills & Interests
 
-- Bioinformatics & Computational Biology
-- Python, R, Nextflow
-- Machine Learning & AI
-- Open Source Development
+- Skill 1
+- Skill 2
+- Interest 1
+- Interest 2
 
 ## Education
 

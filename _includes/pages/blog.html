@@ -12,7 +12,7 @@
             {% endif %}
             <div class="blog-item-compact">
                 <span class="blog-date">{{ post.date | date: "%Y-%m-%d" }}</span>
-                <a href="{{ post.url }}" class="blog-title">{{ post.title }}</a>
+                <a href="{{ post.url | relative_url }}" class="blog-title">{{ post.title }}</a>
             </div>
             {% else %}
             <p>Coming soon...</p>

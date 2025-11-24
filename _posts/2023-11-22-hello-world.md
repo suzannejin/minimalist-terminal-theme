@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: "Hello World: A Template Post"
 date: 2023-11-22 12:00:00 +0100
 ---
